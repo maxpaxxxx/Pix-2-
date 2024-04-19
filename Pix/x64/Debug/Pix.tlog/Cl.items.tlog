@@ -1,0 +1,14 @@
+E:\Pix (2)\Pix\CmdDrawPixel.cpp;E:\Pix (2)\Pix\x64\Debug\CmdDrawPixel.obj
+E:\Pix (2)\Pix\CmdSetColor.cpp;E:\Pix (2)\Pix\x64\Debug\CmdSetColor.obj
+E:\Pix (2)\Pix\CmdSetResolution.cpp;E:\Pix (2)\Pix\x64\Debug\CmdSetResolution.obj
+E:\Pix (2)\Pix\CmdVarFloat.cpp;E:\Pix (2)\Pix\x64\Debug\CmdVarFloat.obj
+E:\Pix (2)\Pix\CommandDictionary.cpp;E:\Pix (2)\Pix\x64\Debug\CommandDictionary.obj
+E:\Pix (2)\Pix\Graphics.cpp;E:\Pix (2)\Pix\x64\Debug\Graphics.obj
+E:\Pix (2)\Pix\MathHelper.cpp;E:\Pix (2)\Pix\x64\Debug\MathHelper.obj
+E:\Pix (2)\Pix\PixEditor.cpp;E:\Pix (2)\Pix\x64\Debug\PixEditor.obj
+E:\Pix (2)\Pix\Rasterizer.cpp;E:\Pix (2)\Pix\x64\Debug\Rasterizer.obj
+E:\Pix (2)\Pix\ScriptParser.cpp;E:\Pix (2)\Pix\x64\Debug\ScriptParser.obj
+E:\Pix (2)\Pix\TextEditor.cpp;E:\Pix (2)\Pix\x64\Debug\TextEditor.obj
+E:\Pix (2)\Pix\VariableCache.cpp;E:\Pix (2)\Pix\x64\Debug\VariableCache.obj
+E:\Pix (2)\Pix\Viewport.cpp;E:\Pix (2)\Pix\x64\Debug\Viewport.obj
+E:\Pix (2)\Pix\WinMain.cpp;E:\Pix (2)\Pix\x64\Debug\WinMain.obj
