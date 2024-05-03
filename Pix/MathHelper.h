@@ -1,9 +1,13 @@
 #pragma once
 #include "Vector2.h"
 #include "Vector3.h"
+#include "Matrix4.h"
 
 class MathHelper
 {
+public:
+	static bool CheckEqual(const float& a, const float& b);
+
 	static float MagnitudeSquared(const Vector2& v);
 	static float MagnitudeSquared(const Vector3& v);
 	static float Magnitude(const Vector2& v);
@@ -13,5 +17,12 @@ class MathHelper
 	static float Dot(const Vector2& a, const Vector2& b);
 	static float Dot(const Vector3& a, const Vector3& b);
 	static Vector3 Cross(const Vector3& a, const Vector3& b);
+	static float Lerp(const float& a, const float& b, const float& t);
 
+	Vector3 TransformCoord(Vector3 v, Matrix4 m); // assume w = 1
+	Vector3 TransformNormal(const Vector3& v, const Matrix4& m); // assume w = 0
+	static float Determinant(Matrix4 m);
+	static Matrix4 Adjoint(Matrix4 m);
+	static Matrix4 Transpose(Matrix4 m);
+	static Matrix4 Inverse(Matrix4 m);
 };

@@ -39,9 +39,6 @@
     <None Include="Scripts\test.pix">
       <Filter>Scripts</Filter>
     </None>
-    <None Include="Scripts\triangles.pix">
-      <Filter>Scripts</Filter>
-    </None>
     <None Include="Scripts\triangles2.pix">
       <Filter>Scripts</Filter>
     </None>
@@ -61,6 +58,15 @@
       <Filter>Scripts</Filter>
     </None>
     <None Include="Scripts\3d_texturing_perspective.pix">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="Scripts\box.pix">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="Scripts\ness.pix">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="Scripts\triangle.pix">
       <Filter>Scripts</Filter>
     </None>
   </ItemGroup>
@@ -105,6 +111,39 @@
     <ClCompile Include="MathHelper.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="CmdForLoop.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitivesManager.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdBeginDraw.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdAddVertex.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdEndDraw.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetFillMode.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetViewport.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdShowViewport.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Clipper.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdSetClipping.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CmdDrawLine.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextEditor.h">
@@ -146,14 +185,53 @@
     <ClInclude Include="Viewport.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="MathHelper.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdForLoop.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitivesManager.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdBeginDraw.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdAddVertex.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdEndDraw.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetFillMode.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetViewport.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdShowViewport.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Clipper.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdSetClipping.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CmdDrawLine.h">
+      <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +248,7 @@
       <UniqueIdentifier>{f4ee6086-a9c7-41f0-9695-19708a6954c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math">
-      <UniqueIdentifier>{73734f16-ba89-4bb0-9b64-71b37d96c9fc}</UniqueIdentifier>
+      <UniqueIdentifier>{7405e5d0-ee74-4360-88cd-faffb72aa21e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
