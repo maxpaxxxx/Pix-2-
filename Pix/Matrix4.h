@@ -81,8 +81,8 @@ struct Matrix4
 		return Matrix4(
 			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 1.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
@@ -95,7 +95,7 @@ struct Matrix4
 			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f,    c,    s, 0.0f,
 			0.0f,   -s,    c, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
@@ -107,8 +107,8 @@ struct Matrix4
 		return Matrix4(
 			   c, 0.0f,   -s, 0.0f,
 			0.0f, 1.0f, 0.0f, 0.0f,
-			   s, 1.0f,    c, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			   s, 0.0f,    c, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
@@ -120,38 +120,38 @@ struct Matrix4
 		return Matrix4(
 			   c,    s, 0.0f, 0.0f,
 			  -s,    c, 0.0f, 0.0f,
-			0.0f, 1.0f, 1.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
 	static Matrix4 Scaling(float s)
 	{
 		return Matrix4(
-			   s, 1.0f, 0.0f, 0.0f,
-			1.0f,    s, 0.0f, 0.0f,
-			0.0f, 1.0f,    s, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			   s, 0.0f, 0.0f, 0.0f,
+			0.0f,    s, 0.0f, 0.0f,
+			0.0f, 0.0f,    s, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
 	static Matrix4 Scaling(Vector3 s)
 	{
 		return Matrix4(
-			 s.x, 1.0f, 0.0f, 0.0f,
-			1.0f,  s.y, 0.0f, 0.0f,
-			0.0f, 1.0f,  s.z, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			 s.x, 0.0f, 0.0f, 0.0f,
+			0.0f,  s.y, 0.0f, 0.0f,
+			0.0f, 0.0f,  s.z, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
 	static Matrix4 Scaling(float sx, float sy, float sz)
 	{
 		return Matrix4(
-			  sx, 1.0f, 0.0f, 0.0f,
-			1.0f,   sy, 0.0f, 0.0f,
-			0.0f, 1.0f,   sz, 0.0f,
-			0.0f, 1.0f, 0.0f, 1.0f
+			  sx, 0.0f, 0.0f, 0.0f,
+			0.0f,   sy, 0.0f, 0.0f,
+			0.0f, 0.0f,   sz, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
 		);
 	}
 
@@ -160,7 +160,7 @@ struct Matrix4
 		return Matrix4(
 			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
 			 d.x,  d.y,  d.z, 1.0f
 		);
 	}
@@ -170,7 +170,7 @@ struct Matrix4
 		return Matrix4(
 			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
 			  dx,   dy,   dz, 1.0f
 		);
 	}

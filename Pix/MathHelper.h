@@ -19,10 +19,11 @@ public:
 	static Vector3 Cross(const Vector3& a, const Vector3& b);
 	static float Lerp(const float& a, const float& b, const float& t);
 
-	Vector3 TransformCoord(Vector3 v, Matrix4 m); // assume w = 1
-	Vector3 TransformNormal(const Vector3& v, const Matrix4& m); // assume w = 0
-	static float Determinant(Matrix4 m);
-	static Matrix4 Adjoint(Matrix4 m);
-	static Matrix4 Transpose(Matrix4 m);
-	static Matrix4 Inverse(Matrix4 m);
+	static void FlattenVector(Vector3& v);
+	static Vector3 TransformCoord(const Vector3& v, const Matrix4& m); // assume w = 1
+	static Vector3 TransformNormal(const Vector3& v, const Matrix4& m); // assume w = 0
+	static float Determinant(const Matrix4& m);
+	static Matrix4 Adjoint(const Matrix4& m);
+	static Matrix4 Transpose(const Matrix4& m);
+	static Matrix4 Inverse(const Matrix4& m);
 };

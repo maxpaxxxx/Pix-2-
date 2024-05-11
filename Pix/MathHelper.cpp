@@ -60,15 +60,22 @@ float MathHelper::Lerp(const float& a, const float& b, const float& t)
 	return a + (b - a) * t;
 }
 
-Vector3 MathHelper::TransformCoord(Vector3 v, Matrix4 m)
+void MathHelper::FlattenVector(Vector3& v)
+{
+	v.x = floor(v.x + 0.5f);
+	v.y = floor(v.y + 0.5f);
+	v.z = floor(v.z + 0.5f);
+}
+
+Vector3 MathHelper::TransformCoord(const Vector3& v, const Matrix4& m)
 {
 	const float w = (v.x * m._14) + (v.y * m._24) + (v.z * m._34) + (1.0f * m._44);
 	const float invW = CheckEqual(w, 0.0f) ? 1.0f : 1.0f / w;	// if dividing by 0, invW = 1
 
 	return {
-		(v.x * m._11) + (v.y * m._21) + (v.z * m._31) + (1.0f * m._41) * invW,
-		(v.x * m._12) + (v.y * m._22) + (v.z * m._32) + (1.0f * m._42) * invW,
-		(v.x * m._13) + (v.y * m._23) + (v.z * m._33) + (1.0f * m._43) * invW
+		((v.x * m._11) + (v.y * m._21) + (v.z * m._31) + (1.0f * m._41)) * invW,
+		((v.x * m._12) + (v.y * m._22) + (v.z * m._32) + (1.0f * m._42)) * invW,
+		((v.x * m._13) + (v.y * m._23) + (v.z * m._33) + (1.0f * m._43)) * invW
 	};
 }
 
@@ -81,7 +88,7 @@ Vector3 MathHelper::TransformNormal(const Vector3& n, const Matrix4& m)
 		});
 }
 
-float MathHelper:: Determinant(Matrix4 m)
+float MathHelper::Determinant(const Matrix4& m)
 {
 	float det = 0.0f;
 	det += (m._11 * (m._22 * (m._33 * m._44 - (m._43 * m._34)) - m._23 * (m._32 * m._44 - (m._42 * m._34)) + m._24 * (m._32 * m._43 - (m._42 * m._33))));
@@ -92,8 +99,7 @@ float MathHelper:: Determinant(Matrix4 m)
 	return det;
 }
 
-
-Matrix4 MathHelper::Adjoint(Matrix4 m)
+Matrix4 MathHelper::Adjoint(const Matrix4& m)
 {
 	return Matrix4(
 		+(m._22 * ((m._33 * m._44) - (m._43 * m._34)) - m._23 * ((m._32 * m._44) - (m._42 * m._34)) + m._24 * ((m._32 * m._43) - (m._42 * m._33))),
@@ -118,7 +124,7 @@ Matrix4 MathHelper::Adjoint(Matrix4 m)
 	);
 }
 
-Matrix4 MathHelper::Transpose(Matrix4 m)
+Matrix4 MathHelper::Transpose(const Matrix4& m)
 {
 	return Matrix4(
 		m._11, m._21, m._31, m._41,
@@ -128,7 +134,7 @@ Matrix4 MathHelper::Transpose(Matrix4 m)
 	);
 }
 
-Matrix4 MathHelper::Inverse(Matrix4 m)
+Matrix4 MathHelper::Inverse(const Matrix4& m)
 {
 	const float determinant = Determinant(m);
 	const float invDet = 1.0f / determinant;

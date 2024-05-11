@@ -33,14 +33,16 @@ void Rasterizer::DrawPoint(const Vertex& v)
 
 void Rasterizer::DrawLine(const Vertex& v0, const Vertex& v1)
 {
+	// we lerp from v0 to v1
+	// draw point
 
 	float dx = v1.pos.x - v0.pos.x;
 	float dy = v1.pos.y - v0.pos.y;
 	if (std::abs(dx) < 0.01f || std::abs(dx) < std::abs(dy))
 	{
-		
+		// slope is straight up
 		int startY, endY;
-		if (v0.pos.y < v1.pos.y)
+		if (v0.pos.y < v1.pos.y)	// We are going up
 		{
 			startY = static_cast<int>(v0.pos.y);
 			endY = static_cast<int>(v1.pos.y);
