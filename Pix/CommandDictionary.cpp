@@ -4,6 +4,7 @@
 #include "CmdSetResolution.h"
 #include "CmdVarFloat.h"
 #include "CmdSetColor.h"
+#include "CmdForLoop.h"
 #include "CmdSetFillMode.h"
 
 #include "CmdBeginDraw.h"
@@ -19,6 +20,8 @@
 #include "CmdSetCameraFOV.h"
 #include "CmdSetCameraNear.h"
 #include "CmdSetCameraPosition.h"
+#include "CmdSetCullMode.h"
+#include "CmdEnableDepth.h"
 
 #include "CmdPushTranslation.h"
 #include "CmdPushRotationX.h"
@@ -42,6 +45,7 @@ CommandDictionary::CommandDictionary()
 	RegisterCommand<CmdSetViewport>();
 	RegisterCommand<CmdShowViewport>();
 	RegisterCommand<CmdSetClipping>();
+	RegisterCommand<CmdEnableDepth>();
 
 	// Camera Settings
 	RegisterCommand<CmdSetCameraDirection>();
@@ -64,11 +68,12 @@ CommandDictionary::CommandDictionary()
 	// Rasterization commands
 	RegisterCommand<CmdDrawPixel>();
 	RegisterCommand<CmdSetColor>();
-
+	RegisterCommand<CmdForLoop>();
 	RegisterCommand<CmdBeginDraw>();
 	RegisterCommand<CmdVertex>();
 	RegisterCommand<CmdEndDraw>();
 	RegisterCommand<CmdSetFillMode>();
+	RegisterCommand<CmdSetCullMode>();
 }
 
 TextEditor::LanguageDefinition CommandDictionary::GenerateLanguageDefinition()

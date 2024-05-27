@@ -21,6 +21,28 @@ namespace
 			  hw,   hh, 0.0f, 1.0f
 		);
 	}
+
+	bool CullTriangle(CullMode mode, const std::vector<Vertex>& triangleInNDC)
+	{
+		if (mode == CullMode::None)
+		{
+			return false;
+		}
+
+		Vector3 abDir = triangleInNDC[1].pos - triangleInNDC[0].pos;
+		Vector3 acDir = triangleInNDC[2].pos - triangleInNDC[0].pos;
+
+		Vector3 faceNorm = MathHelper::Normalize(MathHelper::Cross(abDir, acDir));
+		if (mode == CullMode::Back)
+		{
+			return faceNorm.z > 0.0f;
+		}
+		if (mode == CullMode::Front)
+		{
+			return faceNorm.z < 0.0f;
+		}
+		return false;
+	}
 }
 
 PrimitivesManager::PrimitivesManager()
@@ -29,6 +51,16 @@ PrimitivesManager::PrimitivesManager()
 
 PrimitivesManager::~PrimitivesManager()
 {
+}
+
+void PrimitivesManager::OnNewFrame()
+{
+	mCullMode = CullMode::None;
+}
+
+void PrimitivesManager::SetCullMode(CullMode mode)
+{
+	mCullMode = mode;
 }
 
 PrimitivesManager* PrimitivesManager::Get()
@@ -59,24 +91,7 @@ bool PrimitivesManager::EndDraw()
 	if (!mDrawBegin)
 	{
 		return false;
-	}
-
-	if (mApplyTransform)
-	{
-		Matrix4 matWorld = MatrixStack::Get()->GetTransform();
-		Matrix4 matView = Camera::Get()->GetViewMatrix();
-		Matrix4 matProj = Camera::Get()->GetProjectionMatrix();
-		Matrix4 matScreen = GetScreenMatrix();
-		Matrix4 matNDC = matWorld * matView * matProj;
-		Matrix4 matFinal = matNDC * matScreen;
-
-		for (size_t i = 0; i < mVertexBuffer.size(); ++i)
-		{
-			Vector3 finalPos = MathHelper::TransformCoord(mVertexBuffer[i].pos, matFinal);
-			MathHelper::FlattenVector(finalPos);
-			mVertexBuffer[i].pos = finalPos;
-		}
-	}
+	}	
 
 	switch (mTopology)
 	{
@@ -102,9 +117,38 @@ bool PrimitivesManager::EndDraw()
 		break;
 	case Topology::Triangle:
 	{
+		Matrix4 matWorld = MatrixStack::Get()->GetTransform();
+		Matrix4 matView = Camera::Get()->GetViewMatrix();
+		Matrix4 matProj = Camera::Get()->GetProjectionMatrix();
+		Matrix4 matScreen = GetScreenMatrix();
+		Matrix4 matNDC = matWorld * matView * matProj;
+		
 		for (size_t i = 2; i < mVertexBuffer.size(); i += 3)
 		{
 			std::vector<Vertex> triangle = { mVertexBuffer[i - 2], mVertexBuffer[i - 1], mVertexBuffer[i] };
+			
+			if (mApplyTransform)
+			{
+				for (size_t t = 0; t < triangle.size(); ++t)
+				{
+					Vector3 ndcPos = MathHelper::TransformCoord(triangle[t].pos, matNDC);
+					triangle[t].pos = ndcPos;
+				}
+
+				if (CullTriangle(mCullMode, triangle))
+				{
+					continue;	// Continue skips the rest of the code in a loop and starts the next iteration
+				}
+
+				for (size_t t = 0; t < triangle.size(); ++t)
+				{
+					Vector3 screenPos = MathHelper::TransformCoord(triangle[t].pos, matScreen);
+
+					screenPos.x = floor(screenPos.x + 0.5f);
+					screenPos.y = floor(screenPos.y + 0.5f);
+					triangle[t].pos = screenPos;
+				}
+			}
 			if(!Clipper::Get()->ClipTriangle(triangle))
 			{
 				for (size_t t = 2; t < triangle.size(); ++t)

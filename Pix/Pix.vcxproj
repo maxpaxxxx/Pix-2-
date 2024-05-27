@@ -175,10 +175,13 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Clipper.cpp" />
+    <ClCompile Include="CmdEnableDepth.cpp" />
+    <ClCompile Include="CmdSetCullMode.cpp" />
     <ClCompile Include="CmdVertex.cpp" />
     <ClCompile Include="CmdBeginDraw.cpp" />
     <ClCompile Include="CmdDrawPixel.cpp" />
     <ClCompile Include="CmdEndDraw.cpp" />
+    <ClCompile Include="CmdForLoop.cpp" />
     <ClCompile Include="CmdPopMatrix.cpp" />
     <ClCompile Include="CmdPushRotationX.cpp" />
     <ClCompile Include="CmdPushRotationY.cpp" />
@@ -198,6 +201,7 @@
     <ClCompile Include="CmdShowViewport.cpp" />
     <ClCompile Include="CmdVarFloat.cpp" />
     <ClCompile Include="CommandDictionary.cpp" />
+    <ClCompile Include="DepthBuffer.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="MatrixStack.cpp" />
@@ -218,10 +222,13 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Clipper.h" />
+    <ClInclude Include="CmdEnableDepth.h" />
+    <ClInclude Include="CmdSetCullMode.h" />
     <ClInclude Include="CmdVertex.h" />
     <ClInclude Include="CmdBeginDraw.h" />
     <ClInclude Include="CmdDrawPixel.h" />
     <ClInclude Include="CmdEndDraw.h" />
+    <ClInclude Include="CmdForLoop.h" />
     <ClInclude Include="CmdPopMatrix.h" />
     <ClInclude Include="CmdPushRotationX.h" />
     <ClInclude Include="CmdPushRotationY.h" />
@@ -242,6 +249,7 @@
     <ClInclude Include="CmdVarFloat.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandDictionary.h" />
+    <ClInclude Include="DepthBuffer.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="Matrix4.h" />
