@@ -2,20 +2,20 @@
 
 #include "Command.h"
 
-class CmdEndDraw : public Command
+class CmdModel : public Command
 {
 public:
 	const char* GetName() override
 	{
-		return "EndDraw";
+		return "Model";
 	}
 
 	const char* GetDescription() override
 	{
 		return
-			"EndDraw\n"
+			"Model(fileName)\n"
 			"\n"
-			"- sends vertices to rasterizer to render";
+			"- loads a model as vertices";
 	}
 
 	bool Execute(const std::vector<std::string>& params) override;

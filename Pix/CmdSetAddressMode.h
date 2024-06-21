@@ -2,20 +2,20 @@
 
 #include "Command.h"
 
-class CmdEndDraw : public Command
+class CmdSetAddressMode : public Command
 {
 public:
 	const char* GetName() override
 	{
-		return "EndDraw";
+		return "SetAddressMode";
 	}
 
 	const char* GetDescription() override
 	{
 		return
-			"EndDraw\n"
+			"SetAddressMode(<addressMode>)\n"
 			"\n"
-			"- sends vertices to rasterizer to render";
+			"- Sets the address mode to render textures (clamp, wrap, mirror, border).";
 	}
 
 	bool Execute(const std::vector<std::string>& params) override;
