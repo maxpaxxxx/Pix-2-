@@ -25,6 +25,7 @@ public:
 
 	void OnNewFrame();
 	void SetCullMode(CullMode mode);
+	void SetCorrectUV(bool correctUV);
 
 	bool BeginDraw(Topology topology, bool applyTransform = false);
 	void AddVertex(const Vertex& vertex);
@@ -38,4 +39,5 @@ private:
 	CullMode mCullMode = CullMode::None;
 	bool mDrawBegin = false;
 	bool mApplyTransform = false;
+	bool mCorrectUV = false;
 };

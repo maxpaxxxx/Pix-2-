@@ -8,12 +8,12 @@ bool MathHelper::CheckEqual(const float& a, const float& b)
 
 float MathHelper::MagnitudeSquared(const Vector2& v)
 {
-	return v.x * v.x + v.y + v.y;
+	return v.x * v.x + v.y * v.y;
 }
 
 float MathHelper::MagnitudeSquared(const Vector3& v)
 {
-	return v.x * v.x + v.y + v.y + v.z * v.z;
+	return v.x * v.x + v.y * v.y + v.z * v.z;
 }
 
 float MathHelper::Magnitude(const Vector2& v)

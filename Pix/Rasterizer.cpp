@@ -1,5 +1,8 @@
 #include "Rasterizer.h"
 #include "DepthBuffer.h"
+#include "LightManager.h"
+#include "TextureManager.h"
+#include "PostProcessing.h"
 
 Rasterizer* Rasterizer::Get()
 {
@@ -21,16 +24,33 @@ void Rasterizer::SetFillMode(FillMode fillMode)
 	Matrix4 identity = testA * testAInv;
 }
 
+void Rasterizer::SetShadeMode(ShadeMode shadeMode)
+{
+	mShadeMode = shadeMode;
+}
+
+ShadeMode Rasterizer::GetShadeMode()
+{
+	return mShadeMode;
+}
+
 void Rasterizer::DrawPoint(int x, int y)
 {
-	X::DrawPixel(x, y, mColor);
+	if (!PostProcessing::Get()->DrawToRenderTarget(x, y, mColor))
+	{
+		X::DrawPixel(x, y, mColor);
+	}
 }
 
 void Rasterizer::DrawPoint(const Vertex& v)
 {
 	if (DepthBuffer::Get()->CheckDepthBuffer(v.pos.x, v.pos.y, v.pos.z))
 	{
-		mColor = v.color;
+		mColor = TextureManager::Get()->SampleColor(v.color);
+		if (mShadeMode == ShadeMode::Phong)
+		{
+			mColor *= LightManager::Get()->ComputeLightColor(v.posWorld, v.norm);
+		}
 		DrawPoint(static_cast<int>(v.pos.x), static_cast<int>(v.pos.y));
 	}
 }
@@ -60,7 +80,7 @@ void Rasterizer::DrawLine(const Vertex& v0, const Vertex& v1)
 		for (int y = startY; y <= endY; ++y)
 		{
 			float t = static_cast<float>(y - startY) / static_cast<float>(endY - startY);
-			Vertex v = LerpVertex(v0, v1, t);
+			Vertex v = LerpVertex(v0, v1, t, mShadeMode == ShadeMode::Phong);
 			DrawPoint(v);
 		}
 	}
@@ -81,7 +101,7 @@ void Rasterizer::DrawLine(const Vertex& v0, const Vertex& v1)
 		for (int x = startX; x <= endX; ++x)
 		{
 			float t = static_cast<float>(x - startX) / static_cast<float>(endX - startX);
-			Vertex v = LerpVertex(v0, v1, t);
+			Vertex v = LerpVertex(v0, v1, t, mShadeMode == ShadeMode::Phong);
 			DrawPoint(v);
 		}
 	}
@@ -106,6 +126,11 @@ void Rasterizer::DrawTriangle(const Vertex& v0, const Vertex& v1, const Vertex& 
 			{
 				return lhs.pos.y < rhs.pos.y;
 			});
+		if (mShadeMode == ShadeMode::Flat)
+		{
+			sortedVertices[1].color = sortedVertices[0].color;
+			sortedVertices[2].color = sortedVertices[0].color;
+		}
 		DrawFilledTriangle(sortedVertices[0], sortedVertices[1], sortedVertices[2]);
 	}
 	break;
@@ -120,15 +145,21 @@ void Rasterizer::DrawFilledTriangle(const Vertex& v0, const Vertex& v1, const Ve
 	float dy = v2.pos.y - v0.pos.y;
 	int startY = static_cast<int>(v0.pos.y);
 	int endY = static_cast<int>(v2.pos.y);
-	if (MathHelper::CheckEqual(v0.pos.y, v1.pos.y))
+
+	if (MathHelper::CheckEqual(dy, 0.0f))
+	{
+		DrawLine(v0, v2);
+	}
+
+	else if (MathHelper::CheckEqual(v0.pos.y, v1.pos.y))
 	{
 		for (int y = startY; y <= endY; ++y)
 		{
 			// dy < 1.0f
 			// v0, v1, v2 .posY all the same or < 1.0f
 			float t = static_cast<float>(y - startY) / dy;
-			Vertex a = LerpVertex(v0, v2, t);
-			Vertex b = LerpVertex(v1, v2, t);
+			Vertex a = LerpVertex(v0, v2, t, mShadeMode == ShadeMode::Phong);
+			Vertex b = LerpVertex(v1, v2, t, mShadeMode == ShadeMode::Phong);
 			DrawLine(a, b);
 		}
 	}
@@ -138,8 +169,8 @@ void Rasterizer::DrawFilledTriangle(const Vertex& v0, const Vertex& v1, const Ve
 		for (int y = startY; y <= endY; ++y)
 		{
 			float t = static_cast<float>(y - startY) / dy;
-			Vertex a = LerpVertex(v0, v2, t);
-			Vertex b = LerpVertex(v0, v1, t);
+			Vertex a = LerpVertex(v0, v2, t, mShadeMode == ShadeMode::Phong);
+			Vertex b = LerpVertex(v0, v1, t, mShadeMode == ShadeMode::Phong);
 			DrawLine(a, b);
 		}
 	}
@@ -147,7 +178,7 @@ void Rasterizer::DrawFilledTriangle(const Vertex& v0, const Vertex& v1, const Ve
 	else
 	{
 		float t = (v1.pos.y - v0.pos.y) / dy;
-		Vertex splitVertex = LerpVertex(v0, v2, t);
+		Vertex splitVertex = LerpVertex(v0, v2, t, mShadeMode == ShadeMode::Phong);
 		// top fill
 		DrawFilledTriangle(v0, v1, splitVertex);
 		// bottom fill

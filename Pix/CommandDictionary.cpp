@@ -3,9 +3,12 @@
 #include "CmdDrawPixel.h"
 #include "CmdSetResolution.h"
 #include "CmdVarFloat.h"
+#include "CmdVarInt.h"
+#include "CmdVarBool.h"
 #include "CmdSetColor.h"
 #include "CmdForLoop.h"
 #include "CmdSetFillMode.h"
+#include "CmdSetShadeMode.h"
 
 #include "CmdBeginDraw.h"
 #include "CmdVertex.h"
@@ -23,12 +26,21 @@
 #include "CmdSetCullMode.h"
 #include "CmdEnableDepth.h"
 
+#include "CmdLights.h"
+#include "CmdMaterial.h"
+#include "CmdModel.h"
+#include "CmdSetTexture.h"
+#include "CmdSetCorrectUV.h"
+#include "CmdSetAddressMode.h"
+#include "CmdSetUseFilter.h"
+
 #include "CmdPushTranslation.h"
 #include "CmdPushRotationX.h"
 #include "CmdPushRotationY.h"
 #include "CmdPushRotationZ.h"
 #include "CmdPushScaling.h"
 #include "CmdPopMatrix.h"
+#include "CmdPostProcessing.h"
 
 CommandDictionary* CommandDictionary::Get()
 {
@@ -53,6 +65,7 @@ CommandDictionary::CommandDictionary()
 	RegisterCommand<CmdSetCameraFOV>();
 	RegisterCommand<CmdSetCameraNear>();
 	RegisterCommand<CmdSetCameraPosition>();
+	
 
 	// Matrix Setting
 	RegisterCommand<CmdPushTranslation>();
@@ -64,6 +77,30 @@ CommandDictionary::CommandDictionary()
 
 	// Variable commands
 	RegisterCommand<CmdVarFloat>();
+	RegisterCommand<CmdVarInt>();
+	RegisterCommand<CmdVarBool>();
+	RegisterCommand<CmdModel>();
+	RegisterCommand<CmdSetTexture>();
+
+	// Lights
+	RegisterCommand<CmdSetLightAmbient>();
+	RegisterCommand<CmdSetLightDiffuse>();
+	RegisterCommand<CmdSetLightSpecular>();
+	RegisterCommand<CmdAddDirectionalLight>();
+	RegisterCommand<CmdAddPointLight>();
+	RegisterCommand<CmdAddSpotLight>();
+
+	// Material
+	RegisterCommand<CmdSetMaterialAmbient>();
+	RegisterCommand<CmdSetMaterialDiffuse>();
+	RegisterCommand<CmdSetMaterialSpecular>();
+	RegisterCommand<CmdSetMaterialEmissive>();
+	RegisterCommand<CmdSetMaterialShininess>();
+
+	// Texturing 
+	RegisterCommand<CmdSetCorrectUV>();
+	RegisterCommand<CmdSetAddressMode>();
+	RegisterCommand<CmdSetUseFilter>();
 
 	// Rasterization commands
 	RegisterCommand<CmdDrawPixel>();
@@ -74,6 +111,12 @@ CommandDictionary::CommandDictionary()
 	RegisterCommand<CmdEndDraw>();
 	RegisterCommand<CmdSetFillMode>();
 	RegisterCommand<CmdSetCullMode>();
+	RegisterCommand<CmdSetShadeMode>();
+
+	// Post Processing
+	RegisterCommand<CmdPostProcessingBeginDraw>();
+	RegisterCommand<CmdPostProcessingEndDraw>();
+	RegisterCommand<CmdPostProcessingSetEffectType>();
 }
 
 TextEditor::LanguageDefinition CommandDictionary::GenerateLanguageDefinition()
